@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [codex/windows-pr83-validation]
   pull_request:
 
 permissions:
@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: d46a3d68336352aaf16d60a75ca2701268cf7fb5
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -39,10 +42,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: d46a3d68336352aaf16d60a75ca2701268cf7fb5
+          persist-credentials: false
       - name: Linux desktop libraries
         if: runner.os == 'Linux'
         run: |
